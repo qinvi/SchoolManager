@@ -1,0 +1,122 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="QueryScore.aspx.cs" Inherits="Student_QueryScore" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>曾庆维-教务管理系统</title>
+    <script language="javascript" type="text/javascript">
+        // <!CDATA[
+
+        function btnCancel_onclick() {
+            location.replace('Student.aspx');
+        }
+
+        // ]]>
+    </script>
+</head>
+<body>
+    <%--显示学生信息--%>
+    <form id="form1" runat="server">
+        <asp:FormView ID="formView" runat="server">
+            <ItemTemplate>
+             <div style="font-size:13px;color:rgba(30, 116, 173, 0.83)">
+                 欢迎你:
+                <asp:Label ID="UserName" runat="server" Text='<%#Eval("UserName") %>' />
+             </div>
+                </ItemTemplate>
+        </asp:FormView>
+
+        <!--成绩查询页面-->
+        <div id="wrap1"">
+            <table style="border-right: #99ccff 0.1em solid; border-left: #99ccff 0.1em solid; font-size: 12px; width: 100%; margin-top: 14px; height: 100%">
+                <tr>
+                    <td colspan="3" style="background-image: url(Images/main_top_bg.gif); width: 929px; height: 13px">
+                        <asp:Image ID="Image1" runat="server" Height="14px" ImageUrl="~/Student/Images/main_top_1.gif"
+                            Width="14px" />
+                        学生成绩查询<asp:Label ID="lblTitle" runat="server" Text="Label" Width="658px"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="border-right: #99ccff 0.1em solid; border-top: #99ccff 0.1em solid; vertical-align: top; border-left: #99ccff 0.1em solid; width: 929px; border-bottom: #99ccff 0.1em solid; height: 435px; text-align: left">
+                        <table style="border-right: #99ccff 1px solid; border-top: #99ccff 1px solid; margin-left: 0px; border-left: #99ccff 1px solid; width: 100%; margin-right: 0px; border-bottom: #99ccff 1px solid; height: 180px">
+                            <tr>
+                                <td colspan="6" style="border-right: #99ccff 0.1em solid; border-top: #99ccff 0.1em solid; border-left: #99ccff 0.1em solid; width: 100%; border-bottom: #99ccff 0.1em solid; height: 21px; text-align: left">
+                                    <asp:DropDownList ID="ddlLearnYear" runat="server" Width="95px">
+                                        <%--//DropDownList进行数据绑定--%>
+                                        <asp:ListItem>         </asp:ListItem>
+                                        <asp:ListItem>2010-2011</asp:ListItem>
+                                        <asp:ListItem>2010-2011</asp:ListItem>
+                                        <asp:ListItem>2011-2012</asp:ListItem>
+                                        <asp:ListItem>2012-2013</asp:ListItem>
+                                        <asp:ListItem>2013-2014</asp:ListItem>
+                                        <asp:ListItem>2014-2015</asp:ListItem>
+                                        <asp:ListItem>2015-2016</asp:ListItem>
+                                        <asp:ListItem>2016-2017</asp:ListItem>
+                                    </asp:DropDownList>
+                                    学年
+                            <asp:DropDownList ID="ddlLearnTerm" runat="server"
+                                Width="58px">
+                                <asp:ListItem> </asp:ListItem>
+                                <asp:ListItem>1</asp:ListItem>
+                                <asp:ListItem>2</asp:ListItem>
+                                <asp:ListItem>3</asp:ListItem>
+                            </asp:DropDownList>学期&nbsp;<asp:Button ID="btnView" runat="server" type="button" Text="查 看" />
+                                    <%--<input type="button" name="btnView" value="查看" id ="btnView" onclick ="QueryScore_Click" runat="server"/>--%>
+                                                        &nbsp; &nbsp; &nbsp;
+                            <asp:Button ID="btnviewAll" runat="server" OnClick="QueryScore_Click" Text="查看在校所有成绩" /></td>
+                            </tr>
+                            <tr>
+                                <td   align="center" colspan="6" rowspan="2" style="text-align:left; border-right: #99ccff 0.1em solid; border-top: #99ccff 0.1em solid; border-left: #99ccff 0.1em solid; width: 100%; border-bottom: #99ccff 0.1em solid; height: 359px"
+                                    valign="top">
+                                    <asp:GridView ID="gv_ScoreTable" runat="server" AutoGenerateColumns="False"  CellPadding="4"
+                                        Font-Names="tahoma,arial" Font-Size="13px" ForeColor="#333333" GridLines="None"
+                                        PageSize="15" Width="100%">
+                                        <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                                        <EmptyDataRowStyle Height="20px" />
+                                        <Columns>
+                                           <%-- <asp:BoundField DataField="cb_id" HeaderText="课程代码" />
+                                            <asp:BoundField DataField="cb_name" HeaderText="课程名称" />
+                                            <asp:BoundField DataField="sc_score" HeaderText="成 绩" />
+                                            <asp:BoundField DataField="cb_credithour" HeaderText="学 分" />
+                                            <asp:BoundField DataField="ct_type" HeaderText="课程类型" />
+                                            <asp:BoundField DataField="sc_year" HeaderText="学  年" />
+                                            <asp:BoundField DataField="sc_term" HeaderText="学  期" />
+                                            <asp:BoundField DataField="relearnflag" HeaderText="重修标记" />--%>
+                                            <asp:BoundField DataField="课程号" HeaderText="课程代码" />
+                                            <asp:BoundField DataField="课程名" HeaderText="课程名称" />
+                                            <asp:BoundField DataField="成绩" HeaderText="成绩" />
+                                            <asp:BoundField DataField="学分" HeaderText="学 分" />
+                                            <asp:BoundField DataField="辅修标记" HeaderText="辅修标记" />
+                                        </Columns>
+                                        <RowStyle BackColor="#EFF3FB" Font-Size="12px" />
+                                        <EditRowStyle BackColor="#2461BF" Height="20px" />
+                                        <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                                        <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                                        <HeaderStyle BackColor="SkyBlue" Font-Bold="True" Font-Size="12px" ForeColor="White"
+                                            Height="12px" />
+                                        <AlternatingRowStyle BackColor="White" />
+                                    </asp:GridView>
+                                </td>
+                            </tr>
+                            <tr>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+                  <tr>
+                        <td colspan="6" style="border-right: #99ccff 0.1em solid; border-top: #99ccff 0.1em solid;
+                            border-left: #99ccff 0.1em solid; width: 100%; border-bottom: #99ccff 0.1em solid; text-align: center">
+                            <input id="btnCancel"
+                                    type="button" value="返 回" onclick="return btnCancel_onclick()" /></td>
+                    </tr>
+                <tr>
+                    <td align="right" colspan="3" style="border-right: #99ccff 0.1em solid; border-top: #99ccff 0.1em solid; background-image: url(Images/bottom_bg.gif); border-left: #99ccff 0.1em solid; width: 100%; border-bottom: #99ccff 0.1em solid; height: 25px; text-align: right"
+                        valign="middle">power &nbsp;by qingvi
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
